@@ -12,83 +12,28 @@ namespace CSharpCollections_2
         {
 
             // Criação Variaveis
-            string aulaIntro = "Introdução às Coleções";
-            string aulaModelando = "Modelando a Classe Aula";
-            string aulaSets = "Trabalhando com Conjuntos";
+            var aulaIntro = new Aula("Introdução às Coleções", 20);
+            var aulaModelando = new Aula("Modelando a Classe Aula", 18);
+            var aulaSets = new Aula("Trabalhando com Conjuntos", 16);
 
-            //List<string> aulas = new List<string>
-            //{
-            //    aulaIntro,
-            //    aulaModelando,
-            //    aulaSets
-            //};
-
-            // Criação da Lista
-            List<string> aulas = new List<string>();
+            // Criando e adicionar a lista de objetos
+            List<Aula> aulas = new List<Aula>();
             aulas.Add(aulaIntro);
             aulas.Add(aulaModelando);
             aulas.Add(aulaSets);
 
-            Imprimir(aulas);
-
-            // Get the last and first in different ways.
-            Console.WriteLine("Get the last and first -------------\n");
-            Console.WriteLine("A primeira aula é " + aulas[0]);
-            Console.WriteLine("A última aula é " + aulas[aulas.Count -1]);
-
-            Console.WriteLine("A primeira aula é " + aulas.First());
-            Console.WriteLine("A última aula é " + aulas.Last());
-            Console.WriteLine("\n");
-
-            // Alterando um element da lista
-            Console.WriteLine("Alterando elemento da lista -------------\n");
-            aulas[0] = "Trabalhando com Listas";
-            Imprimir(aulas);
-
-
-            // Localizando palavras
-            Console.WriteLine("Finding words in list  -------------\n");
-            Console.WriteLine("A primeira aula 'Trabalhando' é:" + aulas.First(aula => aula.Contains("Trabalhando")));
-            Console.WriteLine("A última aula 'Trabalhando' é:" + aulas.Last(aula => aula.Contains("Trabalhando")));
-            Console.WriteLine("A primeira aula 'Conclusão' é:" + aulas.FirstOrDefault(aula => aula.Contains("Conclusão")));
-            Console.WriteLine("\n");
-
-            // Reverse
-            Console.WriteLine("Reverse -------------\n");
-            aulas.Reverse();
-            Imprimir(aulas);
-            Console.WriteLine("\n");
-
-            // RemoveAt
-            Console.WriteLine("RemoveAt -------------\n");
-            aulas.RemoveAt(aulas.Count - 1);
-            Imprimir(aulas);
-
-            // Adicionando aula
-            Console.WriteLine("Adicionando aula  -------------\n");
-            aulas.Add("Conclusão");
-            Imprimir(aulas);
-
-            // Sort
-            Console.WriteLine("Sort -------------\n");
+            // Sort default implementado pela IComparable
             aulas.Sort();
             Imprimir(aulas);
 
-            // Copy Elements
-            Console.WriteLine("Copy -------------\n");
-            List<string> copia = aulas.GetRange(aulas.Count - 2, 2);
-            Imprimir(copia);
+            // Sort com outro campo [tempo]
+            aulas.Sort((este, outro) => este.Tempo.CompareTo(outro.Tempo));
+            Imprimir(aulas);
 
-            // Clone
-            Console.WriteLine("Clone -------------\n");
-            List<string> clone = new List<string>(aulas);
-            Imprimir(clone);
 
-            clone.RemoveRange(clone.Count - 2, 2);
-            Imprimir(clone);
         }
 
-        private static void Imprimir(List<string> aulas)
+        private static void Imprimir(List<Aula> aulas)
         {
             //foreach (var aula in aulas)
             //{
@@ -100,6 +45,8 @@ namespace CSharpCollections_2
             //    Console.WriteLine(aulas[i]);
             //}
 
+            Console.Clear();
+
             aulas.ForEach(aula =>
             {
                 Console.WriteLine(aula);
@@ -107,5 +54,33 @@ namespace CSharpCollections_2
 
             Console.WriteLine("\n");
         }
+    }
+
+    class Aula : IComparable
+    {
+        private string titulo;
+        private int tempo;
+
+        public Aula(string titulo, int tempo)
+        {
+            this.titulo = titulo;
+            this.tempo = tempo;
+        }
+
+        public string Titulo { get => titulo; set => titulo = value; }
+        public int Tempo { get => tempo; set => tempo = value; }
+
+        public int CompareTo(object obj)
+        {
+            Aula that = obj as Aula;
+
+            return this.titulo.CompareTo(that.titulo);
+        }
+
+        public override string ToString()
+        {
+            return $"[titulo: {titulo}, tempo: {tempo} minutos]"; 
+        }
+
     }
 }
