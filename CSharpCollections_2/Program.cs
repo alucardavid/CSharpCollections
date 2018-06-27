@@ -10,35 +10,29 @@ namespace CSharpCollections_2
     {
         static void Main(string[] args)
         {
+            // declaração de variaveis
+            ISet<string> alunos = new HashSet<string>();
 
-            Curso csharpColecoes = new Curso("C# Collections", "Marcelo Oliveira");
-            csharpColecoes.Adiciona(new Aula("Trabalhando com Listas", 21));
+            // adicionando alunos
+            alunos.Add("Vanessa Tonini");
+            alunos.Add("Ana Losnak");
+            alunos.Add("Rafael Nercessian");
 
-            Imprimir(csharpColecoes.Aulas);
+            Console.WriteLine(string.Join(", ", alunos));
 
-            // adicionar 2 aulas
-            csharpColecoes.Adiciona(new Aula("Criando uma Aula", 20));
-            csharpColecoes.Adiciona(new Aula("Modelando com Coleções", 19));
+            // removendo a Ana e adicionando marcelo
+            alunos.Remove("Ana Losnak");
+            alunos.Add("Marcelo Oliveira");
 
-            // Imprimir
-            Imprimir(csharpColecoes.Aulas);
+            Console.WriteLine(string.Join(", ", alunos));
 
-            // Ordenando a lista de aulas
-            //csharpColecoes.Aulas.Sort();
+            // sort HashSet
 
-            // copiando a lista de aulas
-            List<Aula> copia = new List<Aula>(csharpColecoes.Aulas);
+            List<string> copiaAlunos = new List<string>(alunos);
 
-            // Ordenar a cópia
-            copia.Sort();
+            copiaAlunos.Sort();
 
-            Imprimir(copia);
-
-            // totalizar o tempo do curso
-            Console.WriteLine(csharpColecoes.TempoTotal);
-
-            Console.WriteLine(csharpColecoes);
-
+            Console.WriteLine(string.Join(", ", copiaAlunos));
         }
 
         private static void Imprimir(IList<Aula> aulas)
