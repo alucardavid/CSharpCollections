@@ -12,6 +12,7 @@ namespace CSharpCollections_2
         private IList<Aula> aulas;
         private string nome;
         private string instrutor;
+        private int tempoTotal;
 
         public Curso(string nome, string instrutor)
         {
@@ -30,6 +31,12 @@ namespace CSharpCollections_2
         public IList<Aula> Aulas
         {
             get { return new ReadOnlyCollection<Aula>(aulas); }
+        }
+        public int TempoTotal { get => aulas.Sum(aula => aula.Tempo); }
+
+        public override string ToString()
+        {
+            return $"\nCurso: {nome} \nTempo: {tempoTotal} \nAulas: {string.Join(", ", aulas)} \n"; 
         }
     }
 }
