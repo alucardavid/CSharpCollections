@@ -13,6 +13,15 @@ namespace CSharpCollections_3
         private string nome;
         private string instrutor;
         private int tempoTotal;
+        private ISet<Aluno> alunos = new HashSet<Aluno>();
+
+        public IList<Aluno> Alunos
+        {
+            get
+            {
+                return new ReadOnlyCollection<Aluno>(alunos.ToList());
+            }
+        }
 
         public Curso(string nome, string instrutor)
         {
@@ -32,6 +41,12 @@ namespace CSharpCollections_3
         {
             get { return new ReadOnlyCollection<Aula>(aulas); }
         }
+
+        internal void Matricula(Aluno aluno)
+        {
+            alunos.Add(aluno);
+        }
+
         public int TempoTotal { get => aulas.Sum(aula => aula.Tempo); }
 
         public override string ToString()

@@ -10,29 +10,30 @@ namespace CSharpCollections_3
     {
         static void Main(string[] args)
         {
-            // declaração de variaveis
-            ISet<string> alunos = new HashSet<string>();
+            // instanciando novo curso
+            Curso curso = new Curso("C# Colecoes", "David Pereira");
 
-            // adicionando alunos
-            alunos.Add("Vanessa Tonini");
-            alunos.Add("Ana Losnak");
-            alunos.Add("Rafael Nercessian");
+            // Adicionando 3 aulas a esse curso
+            curso.Adiciona(new Aula("Trabalhando com Listas", 21));
+            curso.Adiciona(new Aula("Criando uma Aula", 21));
+            curso.Adiciona(new Aula("Modelando com Coleçoes", 21));
 
-            Console.WriteLine(string.Join(", ", alunos));
+            // Adicionando 3 alunos
+            Aluno a1 = new Aluno("Vanessa Tonini", 34672);
+            Aluno a2 = new Aluno("Ana Lonask", 5617);
+            Aluno a3 = new Aluno("Rafael Nercessian", 17645);
 
-            // removendo a Ana e adicionando marcelo
-            alunos.Remove("Ana Losnak");
-            alunos.Add("Marcelo Oliveira");
+            curso.Matricula(a1);
+            curso.Matricula(a2);
+            curso.Matricula(a3);
 
-            Console.WriteLine(string.Join(", ", alunos));
+            // Imprimindo os alunos matriculados
 
-            // sort HashSet
+            foreach (var aluno in curso.Alunos)
+            {
+                Console.WriteLine(aluno);
+            }
 
-            List<string> copiaAlunos = new List<string>(alunos);
-
-            copiaAlunos.Sort();
-
-            Console.WriteLine(string.Join(", ", copiaAlunos));
         }
 
         private static void Imprimir(IList<Aula> aulas)
