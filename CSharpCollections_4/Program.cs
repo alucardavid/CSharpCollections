@@ -50,6 +50,18 @@ namespace CSharpCollections_4
             Console.WriteLine("a1 é equals a Tonini?");
             Console.WriteLine(a1.Equals(tonini));
 
+            // Limpando o console
+            Console.Clear();
+
+            // Procurar aluno pela matricula
+            Console.WriteLine("Quem é o aluno com matricula 5617");
+
+            // Implementando a pesquisa
+            //Aluno aluno5617 = curso.BuscaMatricula(5617);
+
+            // Imprimir aluno pesquisado
+            Console.WriteLine($"aluno5617: {curso.BuscaMatricula(5617)}");
+
         }
 
         private static void Imprimir(IList<Aula> aulas)

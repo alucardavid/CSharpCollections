@@ -14,6 +14,7 @@ namespace CSharpCollections_4
         private string instrutor;
         private int tempoTotal;
         private ISet<Aluno> alunos = new HashSet<Aluno>();
+        private IDictionary<int, Aluno> dicionarioAlunos = new Dictionary<int, Aluno>();
 
         public IList<Aluno> Alunos
         {
@@ -44,7 +45,8 @@ namespace CSharpCollections_4
 
         internal void Matricula(Aluno aluno)
         {
-            alunos.Add(aluno);
+            this.alunos.Add(aluno);
+            this.dicionarioAlunos.Add(aluno.Matricula, aluno);
         }
 
         public int TempoTotal { get => aulas.Sum(aula => aula.Tempo); }
@@ -58,5 +60,22 @@ namespace CSharpCollections_4
         {
             return alunos.Contains(aluno);
         }
+
+        internal Aluno BuscaMatricula(int matricula)
+        {
+            //foreach (var aluno in alunos)
+            //{
+            //    if (aluno.Matricula == matricula)
+            //    {
+            //        return aluno;
+            //    }
+            //}
+            //throw new Exception($"Matricula não encontrada: {matricula}");
+
+            Aluno aluno = null;
+            this.dicionarioAlunos.TryGetValue(matricula, out aluno);
+            return aluno;
+        }
+
     }
 }
