@@ -53,5 +53,10 @@ namespace CSharpCollections_3
         {
             return $"\nCurso: {nome} \nTempo: {tempoTotal} \nAulas: {string.Join(", ", aulas)} \n"; 
         }
+
+        public bool EstaMatriculado(Aluno aluno)
+        {
+            return alunos.Contains(aluno);
+        }
     }
 }

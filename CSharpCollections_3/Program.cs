@@ -34,6 +34,22 @@ namespace CSharpCollections_3
                 Console.WriteLine(aluno);
             }
 
+            // Verificando se o aluno esta matriculado 
+            Console.WriteLine(curso.EstaMatriculado(a1));
+
+            Console.Clear();
+
+            // Verificando se uma nova instancia com as mesmas informações da instancia anterior esta matriculado
+            Aluno tonini = new Aluno("Vanessa Tonini", 34672);
+            Console.WriteLine("Tonini esta matriculada? " + curso.EstaMatriculado(tonini));
+
+            // Teste booleano 
+            Console.WriteLine(a1 == tonini);
+
+            // Utilizando Equals
+            Console.WriteLine("a1 é equals a Tonini?");
+            Console.WriteLine(a1.Equals(tonini));
+
         }
 
         private static void Imprimir(IList<Aula> aulas)

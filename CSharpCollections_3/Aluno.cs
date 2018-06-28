@@ -33,5 +33,22 @@ namespace CSharpCollections_3
             return $"Nome: {nome}, Matricula: {matricula}";
         }
 
+        public override bool Equals(object obj)
+        {
+            Aluno outro = obj as Aluno;
+
+            if (outro == null)
+            {
+                return false;
+            }
+
+            return this.nome.Equals(outro.nome);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.nome.GetHashCode();
+        }
+
     }
 }
