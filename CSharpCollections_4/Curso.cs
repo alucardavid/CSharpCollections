@@ -77,5 +77,9 @@ namespace CSharpCollections_4
             return aluno;
         }
 
+        internal void SubstituirAluno(Aluno aluno)
+        {
+            this.dicionarioAlunos[aluno.Matricula] = aluno;
+        }
     }
 }

@@ -62,6 +62,14 @@ namespace CSharpCollections_4
             // Imprimir aluno pesquisado
             Console.WriteLine($"aluno5617: {curso.BuscaMatricula(5617)}");
 
+            // Adicionando um novo alumo
+            Aluno fabio = new Aluno("Fabio Gushiken", 5617);
+            //curso.Matricula(fabio);
+
+            // Substituição de uma chave existente
+            curso.SubstituirAluno(fabio);
+
+            Console.WriteLine(curso.BuscaMatricula(5617));
         }
 
         private static void Imprimir(IList<Aula> aulas)
