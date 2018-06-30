@@ -10,17 +10,21 @@ namespace CSharpCollections_5
     {
         static void Main(string[] args)
         {
+            // criando uma instancia da classe navegador
             var navegador = new Navegador();
 
+            // navegando entre as paginas
             navegador.NavegarPara("google.com");
             navegador.NavegarPara("facebook.com");
             navegador.NavegarPara("devgenius.com.br");
 
+            // retornar ao historico anterior
             navegador.Anterior();
             navegador.Anterior();
             navegador.Anterior();
             navegador.Anterior();
 
+            // retornar ao historico proximo
             navegador.Proximo();
             navegador.Proximo();
             navegador.Proximo();
@@ -44,7 +48,10 @@ namespace CSharpCollections_5
         {
             if (historicoAnterior.Any())
             {
+                // push adiciona item a pilha
                 historicoProximo.Push(atual);
+
+                // Pop retira o item da pilha
                 atual = historicoAnterior.Pop();
                 Console.WriteLine($"Página atual: {atual}");
             }
