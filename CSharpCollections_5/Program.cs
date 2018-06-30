@@ -10,44 +10,63 @@ namespace CSharpCollections_5
     {
         static void Main(string[] args)
         {
-            // Instanciando uma nova lista ligada: Dias da semana
-            LinkedList<string> dias = new LinkedList<string>();
+            var navegador = new Navegador();
 
-            // Criando quarta
-            var d4 = dias.AddFirst("quarta");
+            navegador.NavegarPara("google.com");
+            navegador.NavegarPara("facebook.com");
+            navegador.NavegarPara("devgenius.com.br");
 
-            // get value of d4
-            Console.WriteLine($"d4.Value: {d4.Value}");
+            navegador.Anterior();
+            navegador.Anterior();
+            navegador.Anterior();
+            navegador.Anterior();
 
-            // criando segunda
-            var d2 = dias.AddBefore(d4, "segunda");
+            navegador.Proximo();
+            navegador.Proximo();
+            navegador.Proximo();
+            navegador.Proximo();
 
-            // criando terça
-            var d3 = dias.AddAfter(d2, "terça");
+        }
+    }
 
-            // criando sexta
-            var d6 = dias.AddAfter(d4, "sexta");
+    internal class Navegador
+    {
+        private readonly Stack<string> historicoAnterior = new Stack<string>();
+        private readonly Stack<string> historicoProximo = new Stack<string>();
+        private string atual = "vazia";
 
-            // criando sabado
-            var d7 = dias.AddAfter(d6, "sabado");
+        public Navegador()
+        {
+            Console.WriteLine($"Página atual: {atual}");
+        }
 
-            // criando quinta
-            var d5 = dias.AddBefore(d6, "quinta");
-
-            // criando domingo
-            var d1 = dias.AddBefore(d2, "domingo");
-
-            // metodo find
-            var quarta = dias.Find("quarta");
-
-            // removendo um item
-            dias.Remove("quarta");
-            foreach (var dia in dias)
+        internal void Anterior()
+        {
+            if (historicoAnterior.Any())
             {
-                Console.WriteLine(dia);
+                historicoProximo.Push(atual);
+                atual = historicoAnterior.Pop();
+                Console.WriteLine($"Página atual: {atual}");
             }
+        }
 
-            
+        internal void NavegarPara(string url)
+        {
+            historicoAnterior.Push(atual);
+            atual = url;
+            Console.WriteLine($"Página atual: {atual}");
+
+        }
+
+        internal void Proximo()
+        {
+            if (historicoProximo.Any())
+            {
+                historicoAnterior.Push(atual);
+                atual = historicoProximo.Pop();
+                Console.WriteLine($"Página atual: {atual}");
+
+            }
         }
     }
 }
