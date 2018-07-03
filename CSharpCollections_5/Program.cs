@@ -8,72 +8,55 @@ namespace CSharpCollections_5
 {
     class Program
     {
+        static Queue<string> pedagio = new Queue<string>();
+
         static void Main(string[] args)
         {
-            // criando uma instancia da classe navegador
-            var navegador = new Navegador();
+            //entrou: van
+            Enfileirar("van");
 
-            // navegando entre as paginas
-            navegador.NavegarPara("google.com");
-            navegador.NavegarPara("facebook.com");
-            navegador.NavegarPara("devgenius.com.br");
+            //entrou: guincho
+            Enfileirar("guincho");
 
-            // retornar ao historico anterior
-            navegador.Anterior();
-            navegador.Anterior();
-            navegador.Anterior();
-            navegador.Anterior();
+            //entrou: pickup
+            Enfileirar("pickup");
 
-            // retornar ao historico proximo
-            navegador.Proximo();
-            navegador.Proximo();
-            navegador.Proximo();
-            navegador.Proximo();
+            Desenfileirar();
 
+        }
+
+        private static void Desenfileirar()
+        {
+            // peek serve para ver o proximo a sair da fila
+
+            if (pedagio.Peek() == "guincho")
+            {
+                Console.WriteLine("guincho está fazendo o pagamento");
+            }
+
+            // dequeue serve para tirar o proximo da fila
+            string veiculo = pedagio.Dequeue();
+            Console.WriteLine($"Saiu da fila: {veiculo}");
+            ImprimirFila();
+        }
+
+        private static void Enfileirar(string veiculo)
+        {
+            Console.WriteLine($"Entrou na fila: {veiculo}");
+            // enqueue serve para incluir o item na fila
+            pedagio.Enqueue(veiculo);
+            ImprimirFila();
+        }
+
+        private static void ImprimirFila()
+        {
+            Console.WriteLine("FILA: ");
+            foreach (var v in pedagio)
+            {
+                Console.WriteLine(v);
+            }
+            Console.WriteLine("\n");
         }
     }
-
-    internal class Navegador
-    {
-        private readonly Stack<string> historicoAnterior = new Stack<string>();
-        private readonly Stack<string> historicoProximo = new Stack<string>();
-        private string atual = "vazia";
-
-        public Navegador()
-        {
-            Console.WriteLine($"Página atual: {atual}");
-        }
-
-        internal void Anterior()
-        {
-            if (historicoAnterior.Any())
-            {
-                // push adiciona item a pilha
-                historicoProximo.Push(atual);
-
-                // Pop retira o item da pilha
-                atual = historicoAnterior.Pop();
-                Console.WriteLine($"Página atual: {atual}");
-            }
-        }
-
-        internal void NavegarPara(string url)
-        {
-            historicoAnterior.Push(atual);
-            atual = url;
-            Console.WriteLine($"Página atual: {atual}");
-
-        }
-
-        internal void Proximo()
-        {
-            if (historicoProximo.Any())
-            {
-                historicoAnterior.Push(atual);
-                atual = historicoProximo.Pop();
-                Console.WriteLine($"Página atual: {atual}");
-
-            }
-        }
-    }
+    
 }
