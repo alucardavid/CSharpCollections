@@ -10,46 +10,58 @@ namespace CSharpCollections2_1
     {
         static void Main(string[] args)
         {
-            IDictionary<string, Aluno> alunos = new Dictionary<string, Aluno>();
-
-            alunos.Add("VT", new Aluno("Vanessa", 34672));
-            alunos.Add("AL", new Aluno("Ana", 5617));
-            alunos.Add("RN", new Aluno("Rafael", 17645));
-            alunos.Add("WM", new Aluno("Wanderson", 11287));
-
-            // imprimindo
-            foreach (var item in alunos)
+            ISet<string> alunos = new SortedSet<string>(new ComparadorMinusculo())
             {
-                Console.WriteLine(item);
+                "Vanessa Tonini",
+                "Ana Losnak",
+                "Rafael Nercessian",
+                "Priscila Stuani"
+            };
+
+            //adicionar: Rafael Rollo
+            alunos.Add("Rafael Rollo");
+            //adicionar: Fabio Gushiken
+            alunos.Add("Fabio Gushiken");
+            //adicionar: FABIO GUSHIKEN
+            alunos.Add("FABIO GUSHIKEN");
+
+            foreach (var aluno in alunos)
+            {
+                Console.WriteLine(aluno);
             }
 
-            // removendo AL
-            alunos.Remove("AL");
+            ISet<string> outroConjunto = new HashSet<string>();
 
-            // adicionando mais um aluno para mostrar que IDctionary não é ordenado automaticamente
-            alunos.Add("MO", new Aluno("Marcelo", 12345));
+            // Metodos de comparação
 
-            Console.WriteLine();
-            // imprimindo
-            foreach (var item in alunos)
-            {
-                Console.WriteLine(item);
-            }
+            //este conjunto é subconjunto de outro? IsSubsetOf
+            alunos.IsSubsetOf(outroConjunto);
 
-            // Criando SorteList
-            IDictionary<string, Aluno> sorted = new SortedList<string, Aluno>();
+            //este conjunto é superconjunto de outro? IsSupersetOf
+            alunos.IsSupersetOf(outroConjunto);
 
-            sorted.Add("VT", new Aluno("Vanessa", 34672));
-            sorted.Add("AL", new Aluno("Ana", 5617));
-            sorted.Add("RN", new Aluno("Rafael", 17645));
-            sorted.Add("WM", new Aluno("Wanderson", 11287));
-            Console.WriteLine();
+            //os conjuntos contêm os mesmo elementos? SetEquals
+            alunos.SetEquals(outroConjunto);
 
-            foreach (var item in sorted)
-            {
-                Console.WriteLine(item);
-            }
+            //subtrai os elementos da outra coleção que também estão nesse? ExceptWith
+            alunos.ExceptWith(outroConjunto);
 
+            //intersecção dos conjuntos - IntersectWith
+            alunos.IntersectWith(outroConjunto);
+
+            //somente em um ou outro conjunto - SymmetricExceptWith
+            alunos.SymmetricExceptWith(outroConjunto;
+
+            //união de conjuntos - UnionWith
+            alunos.UnionWith(outroConjunto);
+        }
+    }
+
+    internal class ComparadorMinusculo : IComparer<string>
+    {
+        public int Compare(string x, string y)
+        {
+            return string.Compare(x, y, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }
