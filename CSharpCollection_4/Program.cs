@@ -10,46 +10,37 @@ namespace CSharpCollection_4
     {
         static void Main(string[] args)
         {
-            // Criando lista de meses e dias
-            List<Mes> meses = new List<Mes>
-            {
-                            new Mes("Janeiro", 31),
-                            new Mes("Fevereiro", 28),
-                            new Mes("Março", 31),
-                            new Mes("Abril", 30),
-                            new Mes("Maio", 31),
-                            new Mes("Junho", 30),
-                            new Mes("Julho", 31),
-                            new Mes("Agosto", 31),
-                            new Mes("Setembro", 30),
-                            new Mes("Outubro", 31),
-                            new Mes("Novembro", 30),
-                            new Mes("Dezembro", 31)
-            };
+            string[] seq1 = { "janeiro", "fevereiro", "março" };
+            string[] seq2 = { "fevereiro", "MARÇO", "abril" };
 
-            // Pegar o primeiro trimestre com o Take
-            var consulta = meses.Take(3);
+            // Conectando duas sequências
+            Console.WriteLine("Conectando duas sequências");
+            var consulta = seq1.Concat(seq2);
             Imprimir(consulta);
 
-            // Pegar os meses depois do primeiro trimestre
-            var consulta2 = meses.Skip(3);
+            // União de duas sequências
+            Console.WriteLine("União de duas sequências");
+            var consulta2 = seq1.Union(seq2);
             Imprimir(consulta2);
 
-            // Pegar os meses do terceiro trimestre
-            var consulta3 = meses.Skip(6).Take(3);
+            // União de duas sequências com comparador
+            Console.WriteLine("União de duas sequências com comparador");
+            var consulta3 = seq1.Union(seq2, StringComparer.InvariantCultureIgnoreCase);
             Imprimir(consulta3);
 
-            // Pegar os meses até que o mês comece com a letra 'S'
-            var consulta4 = meses.TakeWhile(m => !m.Nome.StartsWith("S"));
+            // Intersecção de duas sequências
+            Console.WriteLine("Intersecção de duas sequências");
+            var consulta4 = seq1.Intersect(seq2);
             Imprimir(consulta4);
 
-            // Pular os meses até que o mês comece com a letra 'S'
-            var consulta5 = meses.SkipWhile(m => !m.Nome.StartsWith("S"));
+            // Exceto: elementos da seq1 que não estão em seq2
+            Console.WriteLine("Exceto: elementos da seq1 que não estão em seq2");
+            var consulta5 = seq1.Except(seq2);
             Imprimir(consulta5);
 
         }
 
-        private static void Imprimir(IEnumerable<Mes> consulta)
+        private static void Imprimir(IEnumerable<string> consulta)
         {
             foreach (var item in consulta)
             {
@@ -57,23 +48,5 @@ namespace CSharpCollection_4
             }
             Console.WriteLine();
         }
-    }
-
-    internal class Mes
-    {
-        public Mes(string nome, int dias)
-        {
-            Nome = nome;
-            Dias = dias;
-        }
-
-        public string Nome { get; private set; }
-        public int Dias { get; private set; }
-
-        public override string ToString()
-        {
-            return $"{Nome} - {Dias}";
-        }
-
     }
 }
