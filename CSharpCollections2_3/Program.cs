@@ -28,18 +28,7 @@ namespace CSharpCollections2_3
             };
 
 
-            var
-                consulta = meses
-                                .Where(m => m.Dias == 31)
-                                .OrderBy(m => m.Nome)
-                                .Select(m => m.Nome.ToUpper());
-
-            // Imprimindo
-            foreach (var mes in consulta)
-            {
-                Console.WriteLine(mes);
-            }
-
+            
 
 
         }
